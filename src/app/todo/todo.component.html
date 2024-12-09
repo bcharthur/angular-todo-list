@@ -1,0 +1,53 @@
+<div class="todo-container">
+  <h1 class="title">Ma Liste de Tâches</h1>
+
+  <div class="input-container">
+    <input
+      class="todo-input"
+      [(ngModel)]="newTodoTitle"
+      placeholder="Nouvelle tâche"
+    />
+    <button class="add-button" (click)="addTodo()">Ajouter</button>
+  </div>
+
+  <h2>To-Do</h2>
+  <ul class="todo-list">
+    <li
+      *ngFor="let todo of pendingTodos"
+      class="todo-item"
+      [@fade]
+    >
+      <div class="todo-details">
+        <input
+          type="checkbox"
+          (change)="toggleCompletion(todo)"
+        />
+        <span>{{ todo.title }}</span>
+      </div>
+      <button class="delete-button" (click)="deleteTodo(todo.id)">
+        Supprimer
+      </button>
+    </li>
+  </ul>
+
+  <h2>Done</h2>
+  <ul class="todo-list">
+    <li
+      *ngFor="let todo of completedTodos"
+      class="todo-item completed"
+      [@fade]
+    >
+      <div class="todo-details">
+        <input
+          type="checkbox"
+          [checked]="todo.completed"
+          (change)="toggleCompletion(todo)"
+        />
+        <span>{{ todo.title }}</span>
+      </div>
+      <button class="delete-button" (click)="deleteTodo(todo.id)">
+        Supprimer
+      </button>
+    </li>
+  </ul>
+</div>
