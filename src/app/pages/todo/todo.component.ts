@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TodoService, Todo } from '../todo.service';
+import { TodoService, Todo } from '../../services/todo.service';
 import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
 
 @Component({
