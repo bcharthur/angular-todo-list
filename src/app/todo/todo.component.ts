@@ -13,6 +13,7 @@ import { trigger, style, animate, transition, query, stagger } from '@angular/an
   animations: [
     trigger('listAnimation', [
       transition('* => *', [
+        // Animer les éléments qui entrent dans la liste
         query(
           ':enter',
           [
@@ -21,6 +22,7 @@ import { trigger, style, animate, transition, query, stagger } from '@angular/an
           ],
           { optional: true }
         ),
+        // Animer les éléments qui quittent la liste
         query(
           ':leave',
           [
