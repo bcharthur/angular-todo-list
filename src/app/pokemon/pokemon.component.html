@@ -1,0 +1,97 @@
+<!-- src/app/pokemon/pokemon.component.html -->
+<div class="container mt-4">
+  <h2 class="mb-4">Pokémon</h2>
+
+  <!-- Filtres -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <label for="generation" class="form-label">Génération</label>
+      <select id="generation" class="form-select" [(ngModel)]="selectedGeneration" (change)="applyFilters()">
+        <option value="">Toutes les Générations</option>
+        <option *ngFor="let gen of generations" [value]="gen.name">{{ gen.name | titlecase }}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="type" class="form-label">Type</label>
+      <select id="type" class="form-select" [(ngModel)]="selectedType" (change)="applyFilters()">
+        <option value="">Tous les Types</option>
+        <option *ngFor="let type of types" [value]="type.name.toLowerCase()">{{ type.name_fr }}</option>
+      </select>
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+      <button class="btn btn-secondary me-2" (click)="resetFilters()">Réinitialiser</button>
+    </div>
+  </div>
+
+  <!-- Spinner de Chargement -->
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+  </div>
+
+  <!-- Message d'Erreur -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Liste des Pokémon -->
+  <div class="row" [@listAnimation]>
+    <div
+      class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4"
+      *ngFor="let pokemon of pokemons"
+    >
+      <div class="card h-100 text-center" (click)="openModal(pokemon)" style="cursor: pointer;">
+        <img
+          [src]="pokemon.image"
+          class="card-img-top mx-auto mt-3"
+          alt="{{ pokemon.name_fr }}"
+          style="width: 96px; height: 96px;"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ pokemon.name_fr }}</h5>
+          <p class="card-text">
+            <span *ngFor="let type of pokemon.types" class="badge bg-primary me-1">{{ type }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour les Évolutions -->
+<div class="modal fade" id="evolutionModal" tabindex="-1" aria-labelledby="evolutionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="evolutionModalLabel">Évolutions de {{ selectedPokemon?.name_fr }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="isEvolutionLoading" class="text-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+          </div>
+        </div>
+        <div *ngIf="evolutionError" class="alert alert-danger">
+          {{ evolutionError }}
+        </div>
+        <div *ngIf="evolutionChain.length > 0">
+          <div class="d-flex justify-content-around align-items-center">
+            <div *ngFor="let evo of evolutionChain">
+              <img
+                [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + evo.id + '.png'"
+                alt="{{ evo.name_fr }}"
+                style="width: 96px; height: 96px;"
+              />
+              <p>{{ evo.name_fr }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
