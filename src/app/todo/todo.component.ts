@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TodoService, Todo } from '../todo.service';
-import { trigger, style, animate, transition } from '@angular/animations';
+import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
 
 @Component({
   selector: 'app-todo',
@@ -11,13 +11,26 @@ import { trigger, style, animate, transition } from '@angular/animations';
   standalone: true,
   imports: [CommonModule, FormsModule],
   animations: [
-    trigger('fade', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(-10px)' }),
-        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' })),
-      ]),
-      transition(':leave', [
-        animate('300ms ease-in', style({ opacity: 0, transform: 'translateY(10px)' })),
+    trigger('listAnimation', [
+      transition('* => *', [
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(-10px)' }),
+            stagger('100ms', animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))),
+          ],
+          { optional: true }
+        ),
+        query(
+          ':leave',
+          [
+            animate(
+              '300ms ease-in',
+              style({ opacity: 0, transform: 'translateY(10px)', height: 0, margin: 0 })
+            ),
+          ],
+          { optional: true }
+        ),
       ]),
     ]),
   ],
