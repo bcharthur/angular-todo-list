@@ -1,0 +1,25 @@
+/* src/app/pokemon/pokemon.component.css */
+
+.card-img-top {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.card-title {
+  text-transform: capitalize;
+}
+
+.badge {
+  text-transform: capitalize;
+}
+
+.modal-title {
+  text-transform: capitalize;
+}
+
+.modal-body img {
+  background-color: #f2f2f2;
+  padding: 5px;
+  border-radius: 50%;
+}

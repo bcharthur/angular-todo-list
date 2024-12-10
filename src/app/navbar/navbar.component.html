@@ -1,6 +1,10 @@
+<!-- src/app/navbar/navbar.component.html -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">TodolistApp</a>
+    <a class="navbar-brand" routerLink="/">
+      <img src="assets/images/logo-eni.png" alt="Logo ENI" width="60" height="60" class="d-inline-block align-text-top me-2">
+      ENI Angular
+    </a>
     <button
       class="navbar-toggler"
       type="button"
@@ -19,6 +23,9 @@
         </li>
         <li class="nav-item" *ngIf="!authService.isAuthenticated()">
           <a class="nav-link" routerLink="/register">Inscription</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/pokemon">Pokémon</a>
         </li>
         <li class="nav-item" *ngIf="authService.isAuthenticated()">
           <a class="nav-link" (click)="logout()" style="cursor: pointer;">Déconnexion</a>
