@@ -1,52 +1,55 @@
-<div class="todo-container">
-  <h1 class="title">Ma Liste de Tâches</h1>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Ma Liste de Tâches</h1>
 
-  <div class="input-container">
+  <div class="input-group mb-3">
     <input
-      class="todo-input"
+      type="text"
+      class="form-control"
       [(ngModel)]="newTodoTitle"
       placeholder="Nouvelle tâche"
     />
-    <button class="add-button" (click)="addTodo()">Ajouter</button>
+    <button class="btn btn-primary" (click)="addTodo()">
+      <i class="fas fa-plus"></i>
+    </button>
   </div>
 
-  <h2>To-Do</h2>
-  <ul class="todo-list">
+  <h2 class="h5 mt-4">To-Do</h2>
+  <ul class="list-group" [@listAnimation]="pendingTodos.length">
     <li
       *ngFor="let todo of pendingTodos"
-      class="todo-item"
-      [@fade]
+      class="list-group-item d-flex justify-content-between align-items-center"
     >
-      <div class="todo-details">
+      <div>
         <input
           type="checkbox"
+          class="form-check-input me-2"
           (change)="toggleCompletion(todo)"
         />
         <span>{{ todo.title }}</span>
       </div>
-      <button class="delete-button" (click)="deleteTodo(todo.id)">
-        Supprimer
+      <button class="btn btn-danger btn-sm" (click)="deleteTodo(todo.id)">
+        <i class="fas fa-trash-alt"></i>
       </button>
     </li>
   </ul>
 
-  <h2>Done</h2>
-  <ul class="todo-list">
+  <h2 class="h5 mt-4">Done</h2>
+  <ul class="list-group" [@listAnimation]="completedTodos.length">
     <li
       *ngFor="let todo of completedTodos"
-      class="todo-item completed"
-      [@fade]
+      class="list-group-item d-flex justify-content-between align-items-center"
     >
-      <div class="todo-details">
+      <div>
         <input
           type="checkbox"
+          class="form-check-input me-2"
           [checked]="todo.completed"
           (change)="toggleCompletion(todo)"
         />
         <span>{{ todo.title }}</span>
       </div>
-      <button class="delete-button" (click)="deleteTodo(todo.id)">
-        Supprimer
+      <button class="btn btn-danger btn-sm" (click)="deleteTodo(todo.id)">
+        <i class="fas fa-trash-alt"></i>
       </button>
     </li>
   </ul>
