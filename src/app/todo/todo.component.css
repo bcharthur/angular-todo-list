@@ -61,6 +61,46 @@
   margin: 1rem 0;
 }
 
+/* Case à cocher stylisée */
+.todo-details input[type="checkbox"] {
+  appearance: none; /* Supprime le style natif */
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Animation au moment du clic */
+.todo-details input[type="checkbox"]:checked {
+  background-color: #007bff;
+  border-color: #0056b3;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Style de l'icône cochée */
+.todo-details input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+/* Animation au survol */
+.todo-details input[type="checkbox"]:hover {
+  border-color: #0056b3;
+}
+
+
 .todo-item {
   display: flex;
   justify-content: space-between;
