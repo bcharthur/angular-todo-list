@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { trigger, style, animate, transition } from '@angular/animations';
 import { FormsModule } from '@angular/forms';
-
-interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+import { TodoService, Todo } from '../todo.service';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-todo',
@@ -27,35 +22,51 @@ interface Todo {
     ]),
   ],
 })
-export class TodoComponent {
+export class TodoComponent implements OnInit {
   todos: Todo[] = [];
   newTodoTitle: string = '';
 
+  constructor(private todoService: TodoService) {}
+
+  ngOnInit() {
+    this.loadTodos();
+  }
+
+  loadTodos() {
+    this.todoService.getTodos().subscribe((data) => {
+      this.todos = data;
+    });
+  }
+
   get pendingTodos(): Todo[] {
-    return this.todos.filter(todo => !todo.completed);
+    return this.todos.filter((todo) => !todo.completed);
   }
 
   get completedTodos(): Todo[] {
-    return this.todos.filter(todo => todo.completed);
+    return this.todos.filter((todo) => todo.completed);
   }
 
   addTodo() {
     if (this.newTodoTitle.trim()) {
-      const newTodo: Todo = {
-        id: Date.now(),
+      const newTodo: Partial<Todo> = {
         title: this.newTodoTitle.trim(),
         completed: false,
       };
-      this.todos.push(newTodo);
-      this.newTodoTitle = '';
+      this.todoService.addTodo(newTodo).subscribe((createdTodo) => {
+        this.todos.push(createdTodo);
+        this.newTodoTitle = '';
+      });
     }
   }
 
   toggleCompletion(todo: Todo) {
     todo.completed = !todo.completed;
+    this.todoService.updateTodo(todo).subscribe();
   }
 
   deleteTodo(id: number) {
-    this.todos = this.todos.filter(todo => todo.id !== id);
+    this.todoService.deleteTodo(id).subscribe(() => {
+      this.todos = this.todos.filter((todo) => todo.id !== id);
+    });
   }
 }
