@@ -28,6 +28,9 @@
           <a class="nav-link" routerLink="/pokemon">Pokémon</a>
         </li>
         <li class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/todolist">Todolist</a> <!-- Lien ajouté -->
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated()">
           <a class="nav-link" (click)="logout()" style="cursor: pointer;">Déconnexion</a>
         </li>
       </ul>
