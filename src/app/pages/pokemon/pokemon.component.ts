@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PokemonService, Pokemon, Generation, Type } from '../pokemon.service';
+import { PokemonService, Pokemon, Generation, Type } from '../../services/pokemon.service';
 import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
 import { Observable, forkJoin } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';

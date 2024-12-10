@@ -1,6 +1,6 @@
 // src/app/app.component.ts
 import { Component } from '@angular/core';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './pages/navbar/navbar.component';
 import {RouterOutlet} from '@angular/router';
 
 @Component({
